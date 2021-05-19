@@ -1,12 +1,30 @@
+---
+title: "LogisticRegression"
+output: github_document
+---
+
+```{r setup, include=FALSE}
 #Logistic Regression
 
 library(datasets)
 library(ggplot2)
+```
+
+Logistic Regression
+i. P = e^(β0 + β1X+ εi)/e^(β0 + β1X+ εi) +1.
+ii. log(p/(1-p)) = β0 + β1X+ εi.
+iii. log(p/(1-p)) is called the odds of probability. It is the probability of desired outcome being true divided by the probability of desired outcome not being true and this is called a logit function.
+```{r}
+
+
 Titanic_df<-data.frame(Titanic)
 Titanic_df$Class<-as.factor(Titanic_df$Class)
 regre<-glm(Survived~Class+Age+Sex+Freq,data=Titanic_df, family="binomial")
 summary(regre)
+```
 
+
+```{r pred}
 
 Y<-data.frame("Crew","Adult","Female",as.numeric("50"))
 
@@ -21,3 +39,7 @@ names(Y)<-c("Class","Age","Sex","Freq")
 Y$pred<-predict(regre,Y, type="response")
 ggplot( Y, aes(x=Class, y=pred)) +
   geom_point() 
+
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
